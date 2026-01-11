@@ -1,11 +1,16 @@
 ## Cronograma - projeto de fixação de conteúdo para conclusão de semestre.
+# Obejtivos
 - Criar o mini mundo.
 - Modelagem conceitual.
 - Modelo logico/Normalização.
 - Modelo físico.
-- Adicionar triggers para logs, e Views para API. 
+- Adicionar triggers para logs, Views para API e procedures. 
 - Se conectar a uma Api Restfull com spring boot.
-
+## Restrições
+- Deve-se ser feito passo a passo sem pular nenhuma etapa.
+- O foco é no banco de dados e não em alguma ORM
+- Utilização de LLM restrita apenas para duvidas e não para geração de código ou textos
+- Pode ser utilizado qualquer banco relacional 
 # Ideia
 Criar um banco de dados, onde o usuário pode cadastrar suas compras e gerar uma linha do tempo de seus gastos e dos diferentes preços dos itens que são adquiridos. Como exemplo poderia ser adicionado o item Coca-Cola 2L custando R$10.99 aonde 10 dias depois esse mesmo itens custaria R$8.99, o sistema também deve possibilitar o cadastramento de locais onde ocorreu a compra ou seja o item citado acima possui dois preços com uma certa diferença de tempo, mas também pode ter sido adquirido em dois lugares diferentes.
 
