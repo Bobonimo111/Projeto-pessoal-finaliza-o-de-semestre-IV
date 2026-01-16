@@ -16,3 +16,10 @@ Criar um banco de dados, onde o usuário pode cadastrar suas compras e gerar uma
 
 ## Minimundo
 Como cliente é importante a identificação de usuários então o sistema deve possuir o cadastro de usuários sendo como identificação o nome, sobrenome e o Id sequencial, o item deve conter características  como o nome do item, data da aquisição, se estava ou não em promoção, o valor que deve poder identificado como unidades ou kg e o local da compra que deve conter o nome do mercado ou estabelecimento.
+
+## Modelo conceitual
+![](conclusão_IV_conceitual.png)
+
+## Modelo logico
+![](conclusão_IV_logico.png)
+
