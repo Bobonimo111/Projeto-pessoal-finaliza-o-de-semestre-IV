@@ -23,3 +23,15 @@ Como cliente é importante a identificação de usuários então o sistema deve 
 ## Modelo logico
 ![](conclusão_IV_logico.png)
 
+## Views propostas
+- Visualizar todas as variação de itens por estabelecimento deve conter,nomes dos itens e estabelecimentos e estarem 
+ organizados por data da ultima para primeira agrupados por itens e estabelecimentos;
+
+- Visualizar quantas variações possuem por estabelecimento e item, deve conter nome do estabelecimento, item e quantidade de variações.
+
+- Visualizar a diferencça entre a maior e menor variação de por item, deve conter nome do item e diferença de varição.
+ 
+- Visualizar a quantidade de variações por estabelecimento junto a primeira e ultima data de adição, deve conter nome do estabelecimento, primeira e ultima data de variação adicionada.
+
+- Visualizar a quantidade de variações por item junto a diferença entre a ultima e a primeira variação
+  do item, o maior e menor valor de um item junto das datas primeira variação e ultima, data de maior e menor variação. 
