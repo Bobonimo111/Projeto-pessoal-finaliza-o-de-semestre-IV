@@ -29,7 +29,7 @@ Como cliente é importante a identificação de usuários então o sistema deve 
 
 - Visualizar quantas variações possuem por estabelecimento e item, deve conter nome do estabelecimento, item e quantidade de variações.
 
-- Visualizar a diferencça entre a maior e menor variação de por item, deve conter nome do item e diferença de varição.
+- Visualizar a diferencça entre a maior e menor variação de por item, deve conter nome do item e diferença de varição junto a menor e maior variação.
  
 - Visualizar a quantidade de variações por estabelecimento junto a primeira e ultima data de adição, deve conter nome do estabelecimento, primeira e ultima data de variação adicionada.
 
