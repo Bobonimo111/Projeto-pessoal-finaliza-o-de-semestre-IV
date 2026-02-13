@@ -1,5 +1,5 @@
 -- Começo do script de crição de tabelas
-create databse if not exists ppfsIV;
+create database if not exists ppfsIV;
 use ppfsIV;
 
 -- Tabela user 
