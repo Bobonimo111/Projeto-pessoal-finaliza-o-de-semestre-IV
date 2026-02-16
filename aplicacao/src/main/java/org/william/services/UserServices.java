@@ -31,7 +31,6 @@ public class UserServices {
         return userMapper.toGetUserDto(userEntity);
     }
 
-    @Transactional
     public List<GetUserDTO> getUsers() {
         return this.userRepository.listAll()
         .stream()
@@ -39,7 +38,6 @@ public class UserServices {
         .toList();
     }
 
-    @Transactional
     public UserEntity getUserById(int id) {
         return this.userRepository.findById(id);
     }
@@ -49,5 +47,10 @@ public class UserServices {
         UserEntity dbUserEntity = this.userRepository.findById(id);
         dbUserEntity.setName(postUserDTO.getName());
         dbUserEntity.setLastName(postUserDTO.getLastName());
+    }
+
+    @Transactional
+    public void deleteUserById(int id) {
+        this.userRepository.deleteById(id);
     }
 }

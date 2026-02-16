@@ -52,6 +52,13 @@ public class UserResources {
     @Path("/{id}")
     public Response UpdateFullUser(PostUserDTO postUserDTO, @PathParam("id") int id) {
         this.userServices.updateFullUser(postUserDTO,id);
-        return Response.status(200).build();
+        return Response.status(204).build();
+    }
+
+    @DELETE
+    @Path("/{id")
+    public Response DeleteUser(@PathParam("id") int id) {
+        this.userServices.deleteUserById(id);
+        return Response.status(204).build();
     }
 }
