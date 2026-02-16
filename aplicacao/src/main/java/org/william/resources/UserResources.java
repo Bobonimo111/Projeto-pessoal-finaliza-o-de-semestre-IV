@@ -1,16 +1,12 @@
 package org.william.resources;
 
 
-import org.william.dto.PostUserDTO;
+import jakarta.ws.rs.*;
+import org.william.dto.users.PostUserDTO;
 import org.william.services.UserServices;
 
 import jakarta.ws.rs.core.Response;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 
@@ -30,10 +26,22 @@ public class UserResources {
         return Response.ok(this.userServices.getUsers()).build();
     }
 
+    @GET
+    @Path("/{id}")
+    public Response getUser(@PathParam("id") int id){
+        return Response.status(200).entity(this.userServices.getUserById(id)).build();
+    }
+
     @POST
-    public Response CreateUser( PostUserDTO postUserDTO) {
+    public Response CreateUser(PostUserDTO postUserDTO) {
         this.userServices.createUser(postUserDTO);
         return Response.ok().build();
+    }
 
+    @PUT
+    @Path("/{id}")
+    public Response UpdateFullUser(PostUserDTO postUserDTO, @PathParam("id") int id) {
+        this.userServices.updateFullUser(postUserDTO,id);
+        return Response.status(200).build();
     }
 }

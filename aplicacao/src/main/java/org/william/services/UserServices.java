@@ -1,10 +1,10 @@
 package org.william.services;
 
-import org.william.dto.PostUserDTO;
+import org.william.dto.users.PostUserDTO;
 
 import java.util.List;
 
-import org.william.dto.GetUserDTO;
+import org.william.dto.users.GetUserDTO;
 import org.william.entity.UserEntity;
 import org.william.mapper.UserMapper;
 import org.william.repository.UserRepository;
@@ -38,4 +38,9 @@ public class UserServices {
         .toList();
     }
 
+    public Object getUserById(int id) {
+    }
+
+    public void updateFullUser(PostUserDTO postUserDTO, int id) {
+    }
 }
