@@ -25,9 +25,10 @@ public class UserServices {
     }
 
     @Transactional
-    public void createUser(PostUserDTO postUserDTO) {
+    public GetUserDTO createUser(PostUserDTO postUserDTO) {
         UserEntity userEntity = this.userMapper.toEntity(postUserDTO);
         this.userRepository.persist(userEntity);
+        return userMapper.toGetUserDto(userEntity);
     }
 
     @Transactional
@@ -43,15 +44,10 @@ public class UserServices {
         return this.userRepository.findById(id);
     }
 
+    @Transactional
     public void updateFullUser(PostUserDTO postUserDTO, int id) {
-        UserEntity recivedUserEntity = this.userMapper.toEntity(postUserDTO);
-
         UserEntity dbUserEntity = this.userRepository.findById(id);
-
-        dbUserEntity.setName(recivedUserEntity.getName());
-        dbUserEntity.setLastName(recivedUserEntity.getLastName());
-
-        this.userRepository.persist(dbUserEntity);
-
+        dbUserEntity.setName(postUserDTO.getName());
+        dbUserEntity.setLastName(postUserDTO.getLastName());
     }
 }

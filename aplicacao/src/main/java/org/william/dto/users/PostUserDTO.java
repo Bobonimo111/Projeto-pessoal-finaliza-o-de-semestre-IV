@@ -1,5 +1,9 @@
 package org.william.dto.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.quarkus.runtime.annotations.IgnoreProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PostUserDTO {
 
     private String name;
