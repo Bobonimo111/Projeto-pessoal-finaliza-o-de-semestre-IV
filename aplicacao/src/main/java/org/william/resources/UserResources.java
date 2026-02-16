@@ -3,16 +3,12 @@ package org.william.resources;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.UriInfo;
-import jdk.javadoc.doclet.Taglet;
 import org.william.dto.users.GetUserDTO;
 import org.william.dto.users.PostUserDTO;
-import org.william.services.UserServices;
-
 import jakarta.ws.rs.core.Response;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
-
-import javax.xml.stream.Location;
+import org.william.services.UserServices;
 import java.net.URI;
 
 
