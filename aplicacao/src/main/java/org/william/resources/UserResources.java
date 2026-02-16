@@ -56,7 +56,7 @@ public class UserResources {
     }
 
     @DELETE
-    @Path("/{id")
+    @Path("/{id}")
     public Response DeleteUser(@PathParam("id") int id) {
         this.userServices.deleteUserById(id);
         return Response.status(204).build();
