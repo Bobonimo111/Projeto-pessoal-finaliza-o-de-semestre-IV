@@ -1,4 +1,4 @@
-package org.william.dto;
+package org.william.dto.users;
 
 import java.time.LocalDateTime;
 
