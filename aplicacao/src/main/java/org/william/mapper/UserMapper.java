@@ -2,8 +2,8 @@ package org.william.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.william.dto.GetUserDTO;
-import org.william.dto.PostUserDTO;
+import org.william.dto.users.GetUserDTO;
+import org.william.dto.users.PostUserDTO;
 import org.william.entity.UserEntity;
 
 @Mapper(componentModel = "jakarta")
