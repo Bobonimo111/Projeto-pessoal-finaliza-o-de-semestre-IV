@@ -7,9 +7,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class UserRepository implements PanacheRepositoryBase<UserEntity, Integer> {
-    
-    public void saveUser(UserEntity user) {
-        persist(user);
-    }
 
 }
