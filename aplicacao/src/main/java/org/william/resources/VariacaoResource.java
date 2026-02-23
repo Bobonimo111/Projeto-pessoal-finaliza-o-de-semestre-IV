@@ -1,6 +1,5 @@
 package org.william.resources;
 
-
 import io.quarkus.cache.CacheInvalidate;
 import io.quarkus.cache.CacheResult;
 import jakarta.inject.Inject;
@@ -29,13 +28,11 @@ public class VariacaoResource {
     }
 
     @GET
-    @CacheResult(cacheName = "variacaoCache")
     public Response getAllVariacao(@PathParam("userid")Integer userId){
         return Response.status(200).entity(this.variacaoService.getAll(userId)).build();
     }
 
     @POST
-    @CacheInvalidate(cacheName = "variacaoCache")
     public Response createNewVariacao(@PathParam("userid") Integer userId, PostVariacao postVariacao){
         GetVaricao getVaricao = this.variacaoService.createNew(userId,postVariacao);
         URI UriLocation = this.uriInfo.getBaseUri().resolve("/users/%s/variacoes".formatted(userId));
@@ -51,7 +48,6 @@ public class VariacaoResource {
 
     @PUT
     @Path("/{variaId}")
-    @CacheInvalidate(cacheName = "variacaoCache")
     public Response createNewVariacao(@PathParam("userid") Integer userId,
                                       @PathParam("variaId") Integer variaId,
                                       PostVariacao postVariacao){

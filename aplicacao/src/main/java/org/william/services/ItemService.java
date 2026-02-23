@@ -1,5 +1,6 @@
 package org.william.services;
 
+import io.quarkus.cache.CacheResult;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -25,7 +26,7 @@ public class ItemService {
         this.itemRepository = itemRepository;
         this.em = em;
     }
-
+    @CacheResult(cacheName = "cache_bolado_2")
     public List<GetitemDTO> getitems(Integer userId) {
         return itemRepository.findAllByUserId(userId)
                 .stream()

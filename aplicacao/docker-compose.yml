@@ -8,14 +8,33 @@ services:
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
     ports:
       - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: 0.5
+          memory: 256M
+        reservations:
+          memory: 128M
     environment:
-      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:mysql://mysqldb:3306/projeto_financeiro?allowPublicKeyRetrieval=true
-      - QUARKUS_DATASOURCE_USERNAME=projeto_financeiro
-      - QUARKUS_DATASOURCE_PASSWORD=123456
-      - QUARKUS_FLYWAY_MIGRATE_AT_START=true   
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:mysql://mysqldb:3306/ppfsiv?allowPublicKeyRetrieval=true
+      - QUARKUS_DATASOURCE_USERNAME=quarkus
+      - QUARKUS_DATASOURCE_PASSWORD=quarkus
+      - QUARKUS_FLYWAY_MIGRATE_AT_START=true
+      - QUARKUS_CACHE_TYPE=redis
+      - QUARKUS_REDIS_HOSTS=redis://redis:6379
+      - QUARKUS_CACHE_REDIS_REDIS_CACHE_EXPIRE_AFTER_WRITE=10m
+      - QUARKUS_CACHE_REDIS_REDIS_CACHE_VALUE_TYPE=org.william.dto.varicaoItem
     depends_on:
       db :
         condition : service_healthy
+  cache:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
   db:
     image: mysql:9.0
     container_name: mysqldb
@@ -26,15 +45,24 @@ services:
       retries: 5
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: projeto_financeiro
-      MYSQL_USER: projeto_financeiro
-      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: ppfsiv
+      MYSQL_USER: quarkus
+      MYSQL_PASSWORD: quarkus
     ports:
-      - "3306:3306"
+      - "3307:3306"
+    deploy:
+      resources:
+        limits:
+          cpus: 0.5
+          memory: 256M
+        reservations:
+          memory: 128M
     volumes:
       - mysql_data:/var/lib/mysql
 volumes:
   mysql_data:
+  redis-data:
+    driver: local
     
 
     

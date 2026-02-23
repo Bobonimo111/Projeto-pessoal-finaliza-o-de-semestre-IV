@@ -1,5 +1,6 @@
 package org.william.services;
 
+import io.quarkus.cache.CacheResult;
 import org.william.dto.users.PostUserDTO;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class UserServices {
         return userMapper.toGetUserDto(userEntity);
     }
 
+    @CacheResult(cacheName = "redis_gostoso")
     public List<GetUserDTO> getUsers() {
         return this.userRepository.listAll()
         .stream()

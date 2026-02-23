@@ -1,5 +1,6 @@
 package org.william.services;
 
+import io.quarkus.cache.CacheResult;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -31,7 +32,7 @@ public class VariacaoService {
         this.itemRepository = itemRepository;
     }
 
-
+    @CacheResult(cacheName = "redis_cache")
     public List<GetVaricao> getAll(Integer userId){
         return this.variacaoRepository.getAllByUserId(userId)
                 .stream()

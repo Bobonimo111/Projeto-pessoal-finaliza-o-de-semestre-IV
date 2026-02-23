@@ -1,5 +1,6 @@
 package org.william.services;
 
+import io.quarkus.cache.CacheResult;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -46,6 +47,7 @@ public class EstabelecimentoService {
         return this.estabelecimentoMapper.entityToGetDto(estabelecimento);
     }
 
+    @CacheResult(cacheName = "cache_foderoso")
     public List<GetEstabelecimento> getAllWithUser(Integer userId) {
         return this.estabelecimentoRepository.getAllByUserId(userId).stream()
                 .map(this.estabelecimentoMapper::entityToGetDto)
