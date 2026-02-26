@@ -1,8 +1,17 @@
 ## How to Run 
 
-./mvnw package
-docker-compose up
-
+> Compilar o projeto
+```
+> ./mvnw package -DskipTests
+```
+> Buildar o container baixando e buildando as imagens
+```
+> docker-compose build
+```
+> Subir para testar
+```
+> docker-compose up -d
+```
 ## Desafio proposto
 - /POST
 - CREATED
