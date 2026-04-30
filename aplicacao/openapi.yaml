@@ -1,0 +1,662 @@
+openapi: 3.0.3
+info:
+  title: Project API
+  description: API for managing users, items, item variations, and establishments. Built with Quarkus.
+  version: 1.0.0
+  contact:
+    name: William Rodrigues
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+tags:
+  - name: Users
+    description: Operations related to users
+  - name: Items
+    description: Operations related to items owned by users
+  - name: Variations
+    description: Operations related to item price variations
+  - name: Establishments
+    description: Operations related to establishments owned by users
+
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetUserDTO'
+        '500':
+          description: Internal server error
+
+    post:
+      tags:
+        - Users
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUserDTO'
+      responses:
+        '201':
+          description: User created successfully
+          headers:
+            Location:
+              schema:
+                type: string
+              description: URI of the created user
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal server error
+
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user by ID
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserDTO'
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+    put:
+      tags:
+        - Users
+      summary: Update a user
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUserDTO'
+      responses:
+        '204':
+          description: User updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+    delete:
+      tags:
+        - Users
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      responses:
+        '204':
+          description: User deleted successfully
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+  /users/{userid}/items:
+    get:
+      tags:
+        - Items
+      summary: Get all items for a user
+      operationId: getUserItems
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetitemDTO'
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+    post:
+      tags:
+        - Items
+      summary: Create a new item for a user
+      operationId: createItem
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostItemDTO'
+      responses:
+        '201':
+          description: Item created successfully
+          headers:
+            Location:
+              schema:
+                type: string
+              description: URI of the created item collection
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+  /users/{userid}/items/{id}:
+    put:
+      tags:
+        - Items
+      summary: Update an item
+      operationId: updateItem
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: Item ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostItemDTO'
+      responses:
+        '200':
+          description: Item updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Item not found
+        '500':
+          description: Internal server error
+
+    delete:
+      tags:
+        - Items
+      summary: Delete an item
+      operationId: deleteItem
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: Item ID
+      responses:
+        '204':
+          description: Item deleted successfully
+        '404':
+          description: Item not found
+        '500':
+          description: Internal server error
+
+  /users/{userid}/variacoes:
+    get:
+      tags:
+        - Variations
+      summary: Get all variations for a user
+      operationId: getUserVariations
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetVaricao'
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+    post:
+      tags:
+        - Variations
+      summary: Create a new variation for a user
+      operationId: createVariation
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostVariacao'
+      responses:
+        '201':
+          description: Variation created successfully
+          headers:
+            Location:
+              schema:
+                type: string
+              description: URI of the created variation collection
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+  /users/{userid}/variacoes/{variaId}:
+    put:
+      tags:
+        - Variations
+      summary: Update a variation
+      operationId: updateVariation
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+        - name: variaId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: Variation ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostVariacao'
+      responses:
+        '204':
+          description: Variation updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Variation not found
+        '500':
+          description: Internal server error
+
+    delete:
+      tags:
+        - Variations
+      summary: Delete a variation
+      operationId: deleteVariation
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+        - name: variaId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: Variation ID
+      responses:
+        '204':
+          description: Variation deleted successfully
+        '404':
+          description: Variation not found
+        '500':
+          description: Internal server error
+
+  /users/{userid}/estabelecimentos:
+    get:
+      tags:
+        - Establishments
+      summary: Get all establishments for a user
+      operationId: getUserEstablishments
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetEstabelecimento'
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+    post:
+      tags:
+        - Establishments
+      summary: Create a new establishment for a user
+      operationId: createEstablishment
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostEstabelecimento'
+      responses:
+        '201':
+          description: Establishment created successfully
+          headers:
+            Location:
+              schema:
+                type: string
+              description: URI of the created establishment collection
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+  /users/{userid}/estabelecimentos/{estaid}:
+    put:
+      tags:
+        - Establishments
+      summary: Update an establishment
+      operationId: updateEstablishment
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+        - name: estaid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: Establishment ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostEstabelecimento'
+      responses:
+        '204':
+          description: Establishment updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Establishment not found
+        '500':
+          description: Internal server error
+
+    delete:
+      tags:
+        - Establishments
+      summary: Delete an establishment
+      operationId: deleteEstablishment
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: User ID
+        - name: estaid
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: Establishment ID
+      responses:
+        '204':
+          description: Establishment deleted successfully
+        '404':
+          description: Establishment not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    PostUserDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+      description: Request body for creating or updating a user
+
+    GetUserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: User ID
+        name:
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+        createdAt:
+          type: string
+          format: date-time
+          description: User creation timestamp
+      description: Response body for user data
+
+    PostItemDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Item name
+      description: Request body for creating or updating an item
+
+    GetitemDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Item ID
+        user_Id:
+          type: integer
+          format: int32
+          description: Owner user ID
+        nome:
+          type: string
+          description: Item name
+      description: Response body for item data
+
+    PostVariacao:
+      type: object
+      properties:
+        tipoUnidade:
+          $ref: '#/components/schemas/TipoUnidade'
+        quantidade:
+          type: number
+          format: double
+          description: Quantity amount
+        isPromotion:
+          type: integer
+          format: int32
+          description: Promotion flag (0 or 1)
+        valorUnidade:
+          type: number
+          format: double
+          description: Unit value
+        estabelecimentoId:
+          type: integer
+          format: int32
+          description: Associated establishment ID
+        itemId:
+          type: integer
+          format: int32
+          description: Associated item ID
+      description: Request body for creating or updating a variation
+
+    GetVaricao:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Variation ID
+        tipoUnidade:
+          $ref: '#/components/schemas/TipoUnidade'
+        quantidade:
+          type: number
+          format: double
+          description: Quantity amount
+        isPromotion:
+          type: integer
+          format: int32
+          description: Promotion flag (0 or 1)
+        valorUnidade:
+          type: number
+          format: double
+          description: Unit value
+        estabelecimento:
+          $ref: '#/components/schemas/GetEstabelecimento'
+      description: Response body for variation data
+
+    PostEstabelecimento:
+      type: object
+      properties:
+        nome:
+          type: string
+          description: Establishment name
+        cidade:
+          type: string
+          description: Establishment city
+      description: Request body for creating or updating an establishment
+
+    GetEstabelecimento:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Establishment ID
+        nome:
+          type: string
+          description: Establishment name
+        cidade:
+          type: string
+          description: Establishment city
+      description: Response body for establishment data
+
+    TipoUnidade:
+      type: string
+      enum:
+        - un
+        - kg
+      description: Unit type for variations (unit or kilogram)

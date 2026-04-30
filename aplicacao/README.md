@@ -5,12 +5,15 @@
 > ./mvnw package -DskipTests
 ```
 > Buildar o container baixando e buildando as imagens
+> Subir para testar
+
 ```
 > docker-compose build
-```
-> Subir para testar
-```
 > docker-compose up -d
+```
+> ou para simplificar
+```
+> docker-compose up --build
 ```
 ## Desafio proposto
 - /POST
